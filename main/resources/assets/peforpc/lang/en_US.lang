@@ -1,0 +1,14 @@
+#===Tab===#
+
+#===Blocks===#
+tile.glowingObsidian.name=Glowing Obsidian
+tile.beetrootPlant.name = Beetroot
+tile.netherReactorCore.name=Nether Reactor Core
+tile.glowObsidian.name=Glowing Obsidian
+#===Items===#
+item.beetroot.name=Beetroot
+item.beetrootSeed.name=Beetroot Seeds
+item.beetrootSoup.name=Beetroot Soup
+
+#===Mobs===#
+
