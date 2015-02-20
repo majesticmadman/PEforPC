@@ -21,7 +21,7 @@ public class TileEntityReactor extends TileEntity {
 
 	public boolean isActive = false;
 	public int maxCharge = BlockNetherCore.maximumCharge * 20;
-	public int charge;
+	public int charge = 1;
 	public boolean isExhausted = false;
 	private static ItemStack[] lootTable = new ItemStack[] {
 			new ItemStack(Items.gold_ingot), new ItemStack(Items.melon_seeds),
@@ -108,7 +108,7 @@ public class TileEntityReactor extends TileEntity {
 					// PEforPC.log.info("x: " + x + ";" + "y: " + y + ";" +
 					// "z: "
 					// + z);
-					this.worldObj.setBlock(x, y, z, blockType, 0, z);
+					this.worldObj.setBlock(x, y, z,Blocks.air, 0, z);
 				}
 			}
 		}

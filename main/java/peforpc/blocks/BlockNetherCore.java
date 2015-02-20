@@ -37,11 +37,11 @@ public class BlockNetherCore extends BlockContainer {
 
 		String textureName = this.getUnlocalizedName().substring(
 				this.getUnlocalizedName().indexOf(".") + 1);
-		this.icons[0] = iconRegister.registerIcon(Reference.MOD_ID_LOWERCASE + ":"
+		this.icons[1] = iconRegister.registerIcon(Reference.MOD_ID_LOWERCASE + ":"
 				+ textureName + "_Full");
 		this.icons[2] = iconRegister.registerIcon(Reference.MOD_ID_LOWERCASE + ":"
 				+ textureName + "_Active");
-		this.icons[1] = iconRegister.registerIcon(Reference.MOD_ID_LOWERCASE + ":"
+		this.icons[0] = iconRegister.registerIcon(Reference.MOD_ID_LOWERCASE + ":"
 				+ textureName + "_Drained");
 
 	}
@@ -221,11 +221,11 @@ public class BlockNetherCore extends BlockContainer {
 		}
 		// ~~~~~~~~~~~~~~~
 		// spire
-		// this.spire(world, x, z, baseofSpire + 12, block, radiusFromCore);
+		 this.spire(world, x, z, baseofSpire + 12, block, radiusFromCore);
 		// ~~~~~~~~~~~~~~~
 		// Lighting
-		// this.spireLight(world, x, z, baseofSpire, Blocks.glowStone,
-		// radiusFromCore);
+		 this.spireLight(world, x, z, baseofSpire, Blocks.glowstone,
+		 radiusFromCore);
 		block = PEforPC.glowObsidian;
 		for (int i = x - 1; i <= x + 1; i++) {
 			for (int k = z - 1; k <= z + 1; k++) {
@@ -300,7 +300,7 @@ public class BlockNetherCore extends BlockContainer {
 				for (int k = minWallZ; k <= maxWallZ; k++) {
 					if (world.getBlock(i, j, k) != this) {
 						// world.destroyBlock(i, j, k, true);
-						world.setBlock(i, j, k, null, 0, k);
+						world.setBlock(i, j, k, Blocks.air, 0, k);
 					}
 				}
 			}
@@ -309,7 +309,7 @@ public class BlockNetherCore extends BlockContainer {
 	}
 
 	private void spire(World world, int coreX, int coreZ, int floorY,
-			Block blockiD, int radiusFromCore) {
+			Block block, int radiusFromCore) {
 
 		int maxWallX = coreX + radiusFromCore + 1;
 		int maxWallZ = coreZ + radiusFromCore + 1;
@@ -324,7 +324,7 @@ public class BlockNetherCore extends BlockContainer {
 			k += 2;
 			for (int i1 = maxWallX; i1 >= maxWallX - 2; i1--) {
 				for (int k1 = k; k1 <= maxWallZ; k1++) {
-					world.setBlock(i1, yLayer, k1, blockiD);
+					world.setBlock(i1, yLayer, k1, block);
 				}
 			}
 		}
@@ -335,7 +335,7 @@ public class BlockNetherCore extends BlockContainer {
 			i -= 2;
 			for (int k1 = maxWallZ; k1 >= maxWallZ - 2; k1--) {
 				for (int i1 = i; i1 >= minWallX; i1--) {
-					world.setBlock(i1, yLayer, k1, blockiD);
+					world.setBlock(i1, yLayer, k1, block);
 				}
 			}
 		}
