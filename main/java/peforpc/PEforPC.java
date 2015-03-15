@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import peforpc.blocks.BlockBeetroot;
 import peforpc.blocks.BlockGlowObsidian;
 import peforpc.blocks.BlockNetherCore;
+import peforpc.handler.GuiHandler;
 import peforpc.items.ItemBeetroot;
 import peforpc.items.ItemBeetrootSeed;
 import peforpc.items.ItemBeetrootSoup;
@@ -24,6 +25,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.VERSION)
@@ -52,6 +54,8 @@ public class PEforPC {
 	public static String netherReactorCoreName = "Nether Reactor Core";
 	public static Block glowObsidian;
 	public static String glowObsidianName = "Glowing Obsidian";
+	public static String stoneCutterName = "Stone Cutter"; 
+	public static Block BlockStoneCutter;
 	
 
 	@EventHandler
@@ -68,10 +72,12 @@ public class PEforPC {
 		proxy.registerThings();
 		proxy.registerServerTickHandler();
 
-		PEforPC.Itemss();
 		PEforPC.blocks();
+		PEforPC.Itemss();
 		PErecipes.craftSmelt();
 		PEforPC.entity();
+		 NetworkRegistry.INSTANCE.registerGuiHandler(this,
+					new GuiHandler());
 
 	}
 
@@ -108,12 +114,16 @@ public class PEforPC {
 		PEforPC.netherReactorCore.setCreativeTab(CreativeTabs.tabBlock).setBlockName("netherReactorCore");
 		PEforPC.glowObsidian = new BlockGlowObsidian(Material.rock, Reference.MOD_ID, PEforPC.glowObsidianName);
 		PEforPC.glowObsidian.setCreativeTab(CreativeTabs.tabBlock).setBlockName("glowObsidian");
+		PEforPC.BlockStoneCutter = new peforpc.blocks.BlockStoneCutter(Material.rock, Reference.MOD_ID, PEforPC.stoneCutterName);
+		PEforPC.BlockStoneCutter.setCreativeTab(CreativeTabs.tabBlock).setBlockName("stoneCutter");
 		
 	}
 	
 	public static void Register(){
 		GameRegistry.registerBlock(netherReactorCore, Reference.MOD_ID_LOWERCASE + (netherReactorCore.getUnlocalizedName().substring(5)));
+		GameRegistry.registerBlock(BlockStoneCutter, Reference.MOD_ID_LOWERCASE + (BlockStoneCutter.getUnlocalizedName().substring(5)));
 		GameRegistry.registerBlock(glowObsidian,Reference.MOD_ID_LOWERCASE + glowObsidian.getUnlocalizedName().substring(5));
+		GameRegistry.registerBlock(beetrootPlant,Reference.MOD_ID_LOWERCASE + beetrootPlant.getUnlocalizedName().substring(5)); 
 		GameRegistry.registerItem(beetroot,Reference.MOD_ID_LOWERCASE + beetroot.getUnlocalizedName().substring(5));
 		GameRegistry.registerItem(beetrootSeed,Reference.MOD_ID_LOWERCASE + beetrootSeed.getUnlocalizedName().substring(5));
 		GameRegistry.registerItem(beetrootSoup,Reference.MOD_ID_LOWERCASE + beetrootSoup.getUnlocalizedName().substring(5));

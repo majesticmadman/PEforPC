@@ -20,8 +20,7 @@ import net.minecraft.world.World;
 
 public class BlockNetherCore extends BlockContainer {
 
-	public static int maximumCharge = 5;// 45;
-
+	public static int maximumCharge = 45;// 45;
 	public BlockNetherCore(Block netherReactorCore, Material mat, String modid, String name) {
 		super(mat);
 		this.setResistance(4000.0F);
@@ -46,6 +45,8 @@ public class BlockNetherCore extends BlockContainer {
 
 	}
 
+	
+	
 	@SideOnly(Side.CLIENT)
 	/**
 	 * @param side
@@ -138,6 +139,22 @@ public class BlockNetherCore extends BlockContainer {
 		return false;
 	}
 
+	 public void onNeighborBlockChange(World world, int x, int y, int z, Block block)
+	    {
+	        if (!world.isRemote)
+	        {
+	            if (!world.isBlockIndirectlyGettingPowered(x, y, z))
+	            {
+	            	TileEntityReactor.charge++; 
+	            }
+	            else if (world.isBlockIndirectlyGettingPowered(x, y, z))
+	            {
+	                world.setBlock(x, y, z, Blocks.lit_redstone_lamp, 0, 2);
+	            }
+	        }
+	    }
+	
+	 
 	private boolean structureCheck(World world, int x, int y, int z) {
 		Block cobble = Blocks.cobblestone;
 		Block gold = Blocks.gold_block;
@@ -169,7 +186,7 @@ public class BlockNetherCore extends BlockContainer {
 		Block block = Blocks.netherrack;
 		int radiusFromCore = 7;
 		int baseofSpire = y - 2;
-		int spireBoxHeight = 1 + 5 + 1 + 5;// floor+4+floor+4+spire
+		int spireBoxHeight = 1 + 5 + 1 + 5 + 1 + 5 + 1 + 5 + 1 + 5;// floor+4+floor+4+spire
 		// hollow it out
 		this.spireHollowInterior(world, x, z, baseofSpire, radiusFromCore, y
 				+ spireBoxHeight + 40);
@@ -177,6 +194,8 @@ public class BlockNetherCore extends BlockContainer {
 		this.spireFloor(world, x, y, z, baseofSpire, block, radiusFromCore);
 		this.spireFloor(world, x, y, z, baseofSpire + 6, block, radiusFromCore);
 		this.spireFloor(world, x, y, z, baseofSpire + 12, block, radiusFromCore);
+		this.spireFloor(world, x, y, z, baseofSpire + 18, block, radiusFromCore);
+		this.spireFloor(world, x, y, z, baseofSpire + 24, block, radiusFromCore);
 		// ~~~~~~~~~~~~~~~
 		// Walls
 		// +X
@@ -221,7 +240,7 @@ public class BlockNetherCore extends BlockContainer {
 		}
 		// ~~~~~~~~~~~~~~~
 		// spire
-		 this.spire(world, x, z, baseofSpire + 12, block, radiusFromCore);
+		 this.spire(world, x, z, baseofSpire + 17, block, radiusFromCore);
 		// ~~~~~~~~~~~~~~~
 		// Lighting
 		 this.spireLight(world, x, z, baseofSpire, Blocks.glowstone,
@@ -241,6 +260,7 @@ public class BlockNetherCore extends BlockContainer {
 		world.setBlock(x - 0, y + 1, z - 0, block);
 		world.setBlock(x - 0, y + 1, z + 1, block);
 		world.setBlock(x - 0, y + 1, z - 1, block);
+		///THESE ARE THE GLOW OBSIDIAN 
 		// ~~~~~~~~~~~~~~~
 		// Spawner
 		world.setBlock(x, y + 5, z, Blocks.mob_spawner, 0, 2);
@@ -283,6 +303,7 @@ public class BlockNetherCore extends BlockContainer {
 			world.setBlock(coreX + 3, layer, coreZ - 3, blockiD);
 			world.setBlock(coreX - 3, layer, coreZ + 3, blockiD);
 			world.setBlock(coreX + 3, layer, coreZ + 3, blockiD);
+			/////This is the glowstone blocks
 		}
 
 	}

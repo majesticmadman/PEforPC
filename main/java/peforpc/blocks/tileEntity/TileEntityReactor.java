@@ -4,8 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
+import peforpc.PEforPC;
 import peforpc.blocks.BlockNetherCore;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.init.Blocks;
@@ -21,9 +23,9 @@ public class TileEntityReactor extends TileEntity {
 
 	public boolean isActive = false;
 	public int maxCharge = BlockNetherCore.maximumCharge * 20;
-	public int charge = 1;
+	public static int charge = 0;
 	public boolean isExhausted = false;
-	private static ItemStack[] lootTable = new ItemStack[] {
+	public static ItemStack[] lootTable = new ItemStack[] {
 			new ItemStack(Items.gold_ingot), new ItemStack(Items.melon_seeds),
 			new ItemStack(Items.painting), new ItemStack(Items.glowstone_dust),
 			new ItemStack(Blocks.wooden_door), new ItemStack(Blocks.brown_mushroom),
@@ -31,7 +33,8 @@ public class TileEntityReactor extends TileEntity {
 			new ItemStack(Blocks.cactus), new ItemStack(Items.arrow),
 			new ItemStack(Blocks.reeds), new ItemStack(Items.bowl),
 			new ItemStack(Items.bed), new ItemStack(Items.bow),
-			new ItemStack(Items.quartz), new ItemStack(Items.feather) };
+			new ItemStack(Items.quartz), new ItemStack(Items.feather),new ItemStack(Items.pumpkin_seeds)
+			};
 	private HashMap<Integer, int[]> blocksToDelete = new HashMap();
 
 	/**
@@ -87,10 +90,10 @@ public class TileEntityReactor extends TileEntity {
 	 * inside its implementation.
 	 */
 	public void updateEntity() {
-		if (this.isActive) {
+		while (this.isActive) {
 			this.charge--;
 			// spawning things
-			// this.spawnEntities();
+			 this.spawnEntities();
 			if (this.charge == 20 * 10)
 				this.worldObj.setWorldTime(13500);
 			if (this.charge < 0)
@@ -105,10 +108,7 @@ public class TileEntityReactor extends TileEntity {
 					int x = this.blocksToDelete.get(index)[0];
 					int y = this.blocksToDelete.get(index)[1];
 					int z = this.blocksToDelete.get(index)[2];
-					// PEforPC.log.info("x: " + x + ";" + "y: " + y + ";" +
-					// "z: "
-					// + z);
-					this.worldObj.setBlock(x, y, z,Blocks.air, 0, z);
+					this.worldObj.setBlock(x, y, z,Blocks.netherrack, 0, z);
 				}
 			}
 		}
@@ -135,26 +135,35 @@ public class TileEntityReactor extends TileEntity {
 	}
 
 	private void makeObsidianCasing(World world, int x, int y, int z) {
-		world.setBlock(x - 1, y - 1, z - 1, Blocks.obsidian);
-		world.setBlock(x - 1, y - 1, z - 0, Blocks.obsidian);
-		world.setBlock(x - 1, y - 1, z + 1, Blocks.obsidian);
-		world.setBlock(x - 0, y - 1, z - 1, Blocks.obsidian);
-		world.setBlock(x - 0, y - 1, z - 0, Blocks.obsidian);
-		world.setBlock(x - 0, y - 1, z + 1, Blocks.obsidian);
-		world.setBlock(x + 1, y - 1, z - 1, Blocks.obsidian);
-		world.setBlock(x + 1, y - 1, z - 0, Blocks.obsidian);
-		world.setBlock(x + 1, y - 1, z + 1, Blocks.obsidian);
-		world.setBlock(x - 1, y - 0, z - 1, Blocks.obsidian);
-		world.setBlock(x - 1, y - 0, z + 1, Blocks.obsidian);
-		world.setBlock(x + 1, y - 0, z - 1, Blocks.obsidian);
-		world.setBlock(x + 1, y - 0, z + 1, Blocks.obsidian);
-		world.setBlock(x - 0, y + 1, z - 1, Blocks.obsidian);
-		world.setBlock(x - 0, y + 1, z + 1, Blocks.obsidian);
-		world.setBlock(x - 1, y + 1, z - 0, Blocks.obsidian);
-		world.setBlock(x + 1, y + 1, z - 0, Blocks.obsidian);
-		world.setBlock(x - 0, y + 1, z - 0, Blocks.obsidian);
+		world.setBlock(x - 1, y - 1, z - 1, PEforPC.glowObsidian);
+		world.setBlock(x - 1, y - 1, z - 0, PEforPC.glowObsidian);
+		world.setBlock(x - 1, y - 1, z + 1, PEforPC.glowObsidian);
+		world.setBlock(x - 0, y - 1, z - 1, PEforPC.glowObsidian);
+		world.setBlock(x - 0, y - 1, z - 0, PEforPC.glowObsidian);
+		world.setBlock(x - 0, y - 1, z + 1, PEforPC.glowObsidian);
+		world.setBlock(x + 1, y - 1, z - 1, PEforPC.glowObsidian);
+		world.setBlock(x + 1, y - 1, z - 0, PEforPC.glowObsidian);
+		world.setBlock(x + 1, y - 1, z + 1, PEforPC.glowObsidian);
+		world.setBlock(x - 1, y - 0, z - 1, PEforPC.glowObsidian);
+		world.setBlock(x - 1, y - 0, z + 1, PEforPC.glowObsidian);
+		world.setBlock(x + 1, y - 0, z - 1, PEforPC.glowObsidian);
+		world.setBlock(x + 1, y - 0, z + 1, PEforPC.glowObsidian);
+		world.setBlock(x - 0, y + 1, z - 1, PEforPC.glowObsidian);
+		world.setBlock(x - 0, y + 1, z + 1, PEforPC.glowObsidian);
+		world.setBlock(x - 1, y + 1, z - 0, PEforPC.glowObsidian);
+		world.setBlock(x + 1, y + 1, z - 0, PEforPC.glowObsidian);
+		world.setBlock(x - 0, y + 1, z - 0, PEforPC.glowObsidian);
 	}
 
+	 public void onStruckByLightning(EntityLightningBolt p_70077_1_)
+	    {
+	        if (!this.worldObj.isRemote)
+	        {
+	        	charge = 200;
+	        }
+	    }
+	
+	
 	private void spawnEntities() {
 		// lootTable and ZombiePigmen
 		List<Entity> zombiesAround = this.worldObj.getEntitiesWithinAABB(
@@ -185,22 +194,20 @@ public class TileEntityReactor extends TileEntity {
 			pigman.setPosition(this.xCoord + randX, this.yCoord, this.zCoord
 					+ randZ);
 			/*
-			 * List<Entity> players = this.worldObj.getEntitiesWithinAABB(
-			 * EntityPlayer.class, AxisAlignedBB.getBoundingBox( this.xCoord -
-			 * 6, this.yCoord - 2, this.zCoord - 6, this.xCoord + 6, this.yCoord
-			 * + 2, this.zCoord + 6)); if(!players.isEmpty()) if (players.get(0)
-			 * instanceof EntityLivingBase) {
-			 * pigman.setLastAttacker((EntityLivingBase) players.get(0));
-			 * pigman.setRevengeTarget((EntityLivingBase) players.get(0)); }
+			  List<Entity> players = this.worldObj.getEntitiesWithinAABB(
+			  EntityPlayer.class, AxisAlignedBB.getBoundingBox( this.xCoord -
+			  6, this.yCoord - 2, this.zCoord - 6, this.xCoord + 6, this.yCoord
+			  + 2, this.zCoord + 6)); if(!players.isEmpty()) if (players.get(0)
+			  instanceof EntityLivingBase) {
+			  pigman.setLastAttacker((EntityLivingBase) players.get(0));
+			  pigman.setRevengeTarget((EntityLivingBase) players.get(0)); }
 			 */
 			if (!this.worldObj.isRemote)
 				this.worldObj.spawnEntityInWorld(pigman);
 
 			EntityItem itemEnt = new EntityItem(this.worldObj);
 			int randIndex = rand.nextInt(TileEntityReactor.lootTable.length);
-			int randQuantity = rand
-					.nextInt(TileEntityReactor.lootTable[randIndex]
-							.getMaxStackSize());
+			int randQuantity = rand.nextInt(TileEntityReactor.lootTable[randIndex].getMaxStackSize());
 			ItemStack stack = TileEntityReactor.lootTable[randIndex];
 			stack.stackSize = randQuantity / 2;
 			if (stack.stackSize <= 0)

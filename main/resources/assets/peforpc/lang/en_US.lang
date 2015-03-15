@@ -2,7 +2,7 @@
 
 #===Blocks===#
 tile.glowingObsidian.name=Glowing Obsidian
-tile.beetrootPlant.name = Beetroot
+tile.beetrootPlant.name=Beetroot
 tile.netherReactorCore.name=Nether Reactor Core
 tile.glowObsidian.name=Glowing Obsidian
 #===Items===#
