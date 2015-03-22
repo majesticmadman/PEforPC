@@ -5,10 +5,13 @@ import java.util.logging.Logger;
 import peforpc.blocks.BlockBeetroot;
 import peforpc.blocks.BlockGlowObsidian;
 import peforpc.blocks.BlockNetherCore;
+import peforpc.blocks.BlockCyanFlower;
+import peforpc.blocks.BlockStoneCutter;
 import peforpc.handler.GuiHandler;
 import peforpc.items.ItemBeetroot;
 import peforpc.items.ItemBeetrootSeed;
 import peforpc.items.ItemBeetrootSoup;
+
 import peforpc.proxy.ServerProxy;
 import peforpc.lib.Reference;
 import cpw.mods.fml.common.Mod;
@@ -56,13 +59,14 @@ public class PEforPC {
 	public static String glowObsidianName = "Glowing Obsidian";
 	public static String stoneCutterName = "Stone Cutter"; 
 	public static Block BlockStoneCutter;
+	public static Block BlockCyanFlower;
+	public static String BlockCyanFlowerName = "Cyan Flower";
 	
 
 	@EventHandler
 	public void preinit(FMLPreInitializationEvent event) {
 		Configuration config = new Configuration(
 				event.getSuggestedConfigurationFile());
-		String ItemsCate = "Items IDs", blockCate = "Block IDs", csCate = "Crafting and Smelting", general = config.CATEGORY_GENERAL;
 		config.load();
 
 		config.save();
@@ -109,14 +113,15 @@ public class PEforPC {
 		PEforPC.beetrootPlant = new BlockBeetroot(Reference.MOD_ID, PEforPC.beetrootPlantName);
 		PEforPC.beetrootPlant.setBlockName("beetrootPlant");
 		PEforPC.netherReactorCore = new BlockNetherCore(
-				PEforPC.netherReactorCore, Material.rock, Reference.MOD_ID,
+				PEforPC.netherReactorCore, Material.rock, Reference.MOD_ID_LOWERCASE,
 				PEforPC.netherReactorCoreName);
 		PEforPC.netherReactorCore.setCreativeTab(CreativeTabs.tabBlock).setBlockName("netherReactorCore");
 		PEforPC.glowObsidian = new BlockGlowObsidian(Material.rock, Reference.MOD_ID, PEforPC.glowObsidianName);
 		PEforPC.glowObsidian.setCreativeTab(CreativeTabs.tabBlock).setBlockName("glowObsidian");
-		PEforPC.BlockStoneCutter = new peforpc.blocks.BlockStoneCutter(Material.rock, Reference.MOD_ID, PEforPC.stoneCutterName);
+		PEforPC.BlockStoneCutter = new BlockStoneCutter(Material.rock);
 		PEforPC.BlockStoneCutter.setCreativeTab(CreativeTabs.tabBlock).setBlockName("stoneCutter");
-		
+		PEforPC.BlockCyanFlower = new BlockCyanFlower(Reference.MOD_ID_LOWERCASE, BlockCyanFlowerName, 0);
+		PEforPC.BlockCyanFlower.setCreativeTab(CreativeTabs.tabBlock).setBlockName("cyanFlower"); 
 	}
 	
 	public static void Register(){
@@ -124,6 +129,7 @@ public class PEforPC {
 		GameRegistry.registerBlock(BlockStoneCutter, Reference.MOD_ID_LOWERCASE + (BlockStoneCutter.getUnlocalizedName().substring(5)));
 		GameRegistry.registerBlock(glowObsidian,Reference.MOD_ID_LOWERCASE + glowObsidian.getUnlocalizedName().substring(5));
 		GameRegistry.registerBlock(beetrootPlant,Reference.MOD_ID_LOWERCASE + beetrootPlant.getUnlocalizedName().substring(5)); 
+		GameRegistry.registerBlock(BlockCyanFlower,Reference.MOD_ID_LOWERCASE + BlockCyanFlower.getUnlocalizedName().substring(5));
 		GameRegistry.registerItem(beetroot,Reference.MOD_ID_LOWERCASE + beetroot.getUnlocalizedName().substring(5));
 		GameRegistry.registerItem(beetrootSeed,Reference.MOD_ID_LOWERCASE + beetrootSeed.getUnlocalizedName().substring(5));
 		GameRegistry.registerItem(beetrootSoup,Reference.MOD_ID_LOWERCASE + beetrootSoup.getUnlocalizedName().substring(5));

@@ -1,5 +1,7 @@
 package peforpc.blocks;
 
+import java.util.Random;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import peforpc.PEforPC;
@@ -23,7 +25,7 @@ public class BlockStoneCutter extends BlockContainer {
 	public static IIcon sideIcon;
 	@SideOnly(Side.CLIENT)
 	public static IIcon backIcon;
-	public BlockStoneCutter(Material mat, String modid, String name) {
+	public BlockStoneCutter(Material mat) {
 		super(mat);
 		 setHardness(2F);
 		 setResistance(5F);
@@ -47,8 +49,15 @@ public class BlockStoneCutter extends BlockContainer {
 	     player.openGui(PEforPC.instance, 0, world, x, y, z);
 	             return true;
 	     }
-		
-		
+
+		 public int damageDropped(int meta) {
+				return 1;
+			}
+		 
+			public Block idDropped(int par1, Random par2Random, int par3) {
+				return PEforPC.BlockStoneCutter;
+			}
+		 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int metadata) {
