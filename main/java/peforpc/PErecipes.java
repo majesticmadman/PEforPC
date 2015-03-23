@@ -16,8 +16,8 @@ public class PErecipes {
 				new Object[] { "idi", "idi", "idi", 'i', Items.iron_ingot, 'd',
 						Items.diamond, 'c', Blocks.quartz_block });
 		
-		GameRegistry.addRecipe(new ItemStack(PEforPC.BlockStoneCutter), new Object[] {"   ", " ##", " ##", '#', Blocks.cobblestone});;
-		
-		
+		GameRegistry.addRecipe(new ItemStack(PEforPC.BlockStoneCutter),
+		                new Object[] { "   ", " ##", " ##", '#', Blocks.cobblestone});
+		                ;
 	}
 }
